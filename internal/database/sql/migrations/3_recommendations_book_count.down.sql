@@ -1,0 +1,1 @@
+ALTER TABLE recommendations DROP COLUMN book_count;

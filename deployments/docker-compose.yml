@@ -1,0 +1,46 @@
+version: "3"
+networks:
+  app-network:
+    driver: bridge
+services:
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tests
+    restart: on-failure
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+    command:
+      - /bin/sh
+      - -c
+      - |
+        echo 'psql -v ON_ERROR_STOP=1 --username "$$POSTGRES_USER" -c "CREATE DATABASE books_ai";' >> /docker-entrypoint-initdb.d/multiple_dbs.sh;
+        docker-entrypoint.sh postgres
+  books_ai:
+    build:
+      context: ..
+      dockerfile: deployments/Dockerfile
+    image: books-ai:latest
+    container_name: books_ai
+    volumes:
+      - ../web:/app/web
+    ports:
+      - 8080:8080
+    environment:
+      RDS_URL: ${RDS_URL}
+      LLM_TOKEN: ${LLM_TOKEN}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: on-failure

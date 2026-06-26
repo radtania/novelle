@@ -1,0 +1,13 @@
+I am a book lover. 
+I want to find information about me based on the set of books I've read. 
+I'll give you the set of books in the following table:
+Title,Author,Status,My Rating
+[REPLACE]
+
+Please fill in the following based on the above books analysis and only include the below in response:
+Book recommendation all time: one recommendation of a book I didn't read
+Recent recommendation: one recommendation of a book I didn't read written in the last 10 years
+Author: the author I like the most
+Interest: enumerate my interests
+Personality: tell something about my personality
+Fictional character: if I would be a fictional character, who would I be and why

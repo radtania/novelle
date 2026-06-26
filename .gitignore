@@ -1,0 +1,10 @@
+booksai
+booksai.exe
+booksai.zip
+booksai2.zip
+node_modules/
+frontend/node_modules/
+build/
+dist/
+.env
+vendor/

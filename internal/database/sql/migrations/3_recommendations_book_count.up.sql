@@ -1,0 +1,1 @@
+ALTER TABLE recommendations ADD COLUMN book_count INTEGER NOT NULL DEFAULT 0;
